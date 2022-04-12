@@ -1,0 +1,12 @@
+<!-- Titulo del apartado, en ese caso el buscador -->
+<h5>Buscar:</h5>
+<!-- Anexamos un cuadro de texto para ingresar la busqueda -->
+<!-- Utilizamos la función "keyup.enter" para que la busqueda se realice cuando el usuario aprete enter-->
+<!-- Creamos una referencia local llamada "txtBuscar" la cual contendra la información a buscar -->
+    <input 
+        type="text" 
+        class="form-control" 
+        placeholder="Buscar gifs"
+        (keyup.enter)="buscador()"
+        #txtBuscar
+    >
