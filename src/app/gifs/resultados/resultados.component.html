@@ -1,1 +1,18 @@
-<p>resultados works!</p>
+<!-- <ul>
+    <li *ngFor="let resultado of resultados">
+        {{ resultado.title }}
+    </li>
+</ul> -->
+
+<div class="row">
+    <div class="col-md-4 col-sm-6" *ngFor="let resultado of resultados">
+        <div class="card">
+            <img [src]="resultado.images.downsized_medium.url" [alt]="resultado.title" class="card-img-top">
+            <div class="card-body">
+                <div class="cart-text">
+                    {{ resultado.title }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
