@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Gif, SearchGifsResponse, Images } from '../interfaces/gifs.interface';
 
@@ -7,6 +7,9 @@ import { Gif, SearchGifsResponse, Images } from '../interfaces/gifs.interface';
   providedIn: 'root'
 })
 export class GifsService {
+
+  private servicioUrl: string='https://api.giphy.com/v1/gifs';
+
 
   private apiKey:string = 'Aa5slhDocx3VtiolKUSS34W2M5Yfyn3x';
 
@@ -47,7 +50,6 @@ export class GifsService {
   
   //Creamos una función para poder almancenar la busqueda ingresada
   buscarGifs( query: string = ''){
-
     //Utilizamos el "trim" para cortar los espacios en un principio o al final que pueda tener la cadena
     //Utilizamos el "toLocaleUpperCase" para pasar toda la cadena a minusculas
     query = query.trim().toLocaleUpperCase();
@@ -73,9 +75,17 @@ export class GifsService {
     //   localStorage.setItem('resultados', JSON.stringify(this.resultados));
     // }
 
+    const params = new HttpParams()
+                      .set('api_key', this.apiKey)
+                      .set('limit','10')
+                      .set('q', query);
+         
+    // console.log(params.toString());                  
+
+
     //Utilizamos la variable "http" declarada en nuestro constructor para obtener la información referente a la busqueda ingresada y mostramos los diez resultados de está
     //Utilizamos la interfaz exportada para especificar el tipo de archivo que tendrá nuestra busqeda
-    this.http.get<SearchGifsResponse>(`https://api.giphy.com/v1/gifs/search?api_key=Aa5slhDocx3VtiolKUSS34W2M5Yfyn3x&q=${ query }&limit=10`)
+    this.http.get<SearchGifsResponse>(`${ this.servicioUrl}/search`, {params})
     .subscribe( (resp:any) => {
       console.log(resp.data);
       this.resultados = resp.data;
